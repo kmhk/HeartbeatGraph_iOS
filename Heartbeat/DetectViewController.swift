@@ -18,6 +18,9 @@ class DetectViewController: UIViewController {
 	@IBOutlet weak var lblNote: UILabel!
 	@IBOutlet weak var lblBpm: UILabel!
 	@IBOutlet weak var lblTime: UILabel!
+	@IBOutlet weak var scrollContainer: UIScrollView!
+	
+	var viewGraph: HeartbeatGraphView?
 	
 	
 	// MARK: life-cycle methods
@@ -29,12 +32,15 @@ class DetectViewController: UIViewController {
 			alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
 			self?.show(alert, sender: nil)
 		}
-		viewModel.initCamera(with: viewCamera, seconds: 10, dectionPerSecond: 30)
+		viewModel.initCamera(with: viewCamera, seconds: 10)
 		viewModel.heartBeat.delegate = self
 		
 		viewCamera.layer.cornerRadius = viewCamera.frame.size.width / 2
 		viewCamera.layer.borderWidth = 1.0
 		viewCamera.clipsToBounds = true
+		
+		viewGraph = HeartbeatGraphView(frame: scrollContainer.frame)
+		scrollContainer.addSubview(viewGraph!)
     }
 	
 	
@@ -42,6 +48,13 @@ class DetectViewController: UIViewController {
 		super.viewWillAppear(animated)
 		
 		viewModel.startCamera()
+	}
+	
+	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		
+		viewGraph?.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: scrollContainer.frame.size)
 	}
 
 	
@@ -75,12 +88,21 @@ extension DetectViewController: HeartBeatDetectorDelegate {
 	
 	func heartBeatStarted() {
 		lblNote.text = "Detecting now... Please keep your finger for 10s"
+		
+		viewGraph?.reset()
+		viewGraph?.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: scrollContainer.frame.size)
+		scrollContainer.contentSize = CGSize(width: (viewGraph?.frame.size.width)!, height: (viewGraph?.frame.size.height)!)
 	}
 	
 	
 	func heartBeatUpdate(_ bpm: Int, atTime: Int) {
 		lblBpm.text = "\(bpm)" + " bpm"
 		lblTime.text = "\(atTime)" + "ms"
+		
+		viewGraph?.drawGraph(with: bpm, time: atTime)
+		
+		scrollContainer.contentSize = CGSize(width: (viewGraph?.frame.size.width)!, height: (viewGraph?.frame.size.height)!)
+		scrollContainer.setContentOffset(CGPoint(x: (viewGraph?.frame.size.width)! - scrollContainer.frame.size.width, y: 0), animated: true)
 	}
 	
 	
@@ -88,7 +110,7 @@ extension DetectViewController: HeartBeatDetectorDelegate {
 		viewModel.stopCamera()
 		
 		btnDetect.isHidden = false
-		lblNote.text = "Detection finished. Click \"New Detect\" for new detection"
+		lblNote.text = "Detection finished. Click \"New Detect\" for new detection, \(viewGraph?.points.count)"
 	}
 	
 	

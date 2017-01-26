@@ -14,6 +14,7 @@
 		F3B8F1591E37B15A0073B963 /* DetectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B8F1581E37B15A0073B963 /* DetectViewController.swift */; };
 		F3B8F15B1E37C2770073B963 /* DetectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B8F15A1E37C2770073B963 /* DetectViewModel.swift */; };
 		F3B8F15D1E37F8200073B963 /* HeartBeatDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B8F15C1E37F8200073B963 /* HeartBeatDetector.swift */; };
+		F3B8F15F1E3951A40073B963 /* HeartbeatGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B8F15E1E3951A40073B963 /* HeartbeatGraphView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		F3B8F1581E37B15A0073B963 /* DetectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetectViewController.swift; sourceTree = "<group>"; };
 		F3B8F15A1E37C2770073B963 /* DetectViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetectViewModel.swift; sourceTree = "<group>"; };
 		F3B8F15C1E37F8200073B963 /* HeartBeatDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartBeatDetector.swift; sourceTree = "<group>"; };
+		F3B8F15E1E3951A40073B963 /* HeartbeatGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartbeatGraphView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				F3B8F1581E37B15A0073B963 /* DetectViewController.swift */,
 				F3B8F15A1E37C2770073B963 /* DetectViewModel.swift */,
 				F3B8F15C1E37F8200073B963 /* HeartBeatDetector.swift */,
+				F3B8F15E1E3951A40073B963 /* HeartbeatGraphView.swift */,
 				F3B8F1441E37B0B70073B963 /* AppDelegate.swift */,
 				F3B8F1481E37B0B70073B963 /* Main.storyboard */,
 				F3B8F14B1E37B0B70073B963 /* Assets.xcassets */,
@@ -146,6 +149,7 @@
 				F3B8F1451E37B0B70073B963 /* AppDelegate.swift in Sources */,
 				F3B8F15B1E37C2770073B963 /* DetectViewModel.swift in Sources */,
 				F3B8F1591E37B15A0073B963 /* DetectViewController.swift in Sources */,
+				F3B8F15F1E3951A40073B963 /* HeartbeatGraphView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,7 +270,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Bai Jin Zhin (FU9SD2G4V7)";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Heartbeat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -283,7 +287,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Bai Jin Zhin (FU9SD2G4V7)";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Heartbeat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;

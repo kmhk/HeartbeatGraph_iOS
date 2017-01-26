@@ -116,8 +116,10 @@ class HeartBeatDetector: NSObject {
 		let percent = second / 60.0
 		let heartbeat = Double(peekCount) / percent
 		
-		DispatchQueue.main.async {
-			self.delegate?.heartBeatUpdate(Int(heartbeat), atTime: Int(ms))
+		if hueArray.count >= (5 * fps) { // wait 5 sec to calc right value
+			DispatchQueue.main.async {
+				self.delegate?.heartBeatUpdate(Int(heartbeat), atTime: Int(ms))
+			}
 		}
 		
 		if hueArray.count >= duration * fps {

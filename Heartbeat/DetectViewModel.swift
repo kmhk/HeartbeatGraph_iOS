@@ -45,7 +45,7 @@ class DetectViewModel: NSObject {
 	
 	// MARK: init methods
 	
-	func initCamera(with view: UIView, seconds: Int = 10, dectionPerSecond: Int = 10) {
+	func initCamera(with view: UIView, seconds: Int = 10, dectionPerSecond: Int = 30) {
 		preview = view
 		
 		duration = seconds
@@ -144,9 +144,9 @@ class DetectViewModel: NSObject {
 			session.addInput(videoDeviceInput)
 			self.videoDeviceInput = videoDeviceInput
 			
-			DispatchQueue.main.async {
+			/*DispatchQueue.main.async {
 				self.preview?.layer.addSublayer(self.previewLayer)
-			}
+			}*/
 			
 			// add output device
 			let videoDeviceOutput = AVCaptureVideoDataOutput()
