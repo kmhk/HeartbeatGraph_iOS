@@ -80,15 +80,22 @@ class HeartbeatGraphView: UIView {
 //		guard points.count > 15 else { return }
 		
 		yUnit = yUnit / 10
-		UIColor.red.setFill()
+		UIColor.red.setStroke()
+		let bpm = UIBezierPath()
 		for i in 0 ..< points.count {
 			let pt = points[i]
 			let x: CGFloat = 40 + xUnit * CGFloat(i)
 			let y: CGFloat = (rect.size.height - 40) - (yUnit * CGFloat(pt.bpm-30))
 			
-			let bpm = UIBezierPath(roundedRect: CGRect(x: x-1, y: y-1, width: 2, height: 2), cornerRadius: 1)
-			bpm.fill()
+			if i == 0 {
+				bpm.move(to: CGPoint(x: x, y: y))
+			} else {
+				bpm.addLine(to: CGPoint(x: x, y: y))
+			}
+//			let bpm = UIBezierPath(roundedRect: CGRect(x: x-1, y: y-1, width: 2, height: 2), cornerRadius: 1)
+//			bpm.fill()
 		}
+		bpm.stroke()
 	}
 	
 	
