@@ -24,6 +24,15 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ui7-hl-lyq">
                                 <rect key="frame" x="123.5" y="80" width="128" height="128"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dfc-fe-vEw">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="128" id="AOQ-hh-SA1"/>
@@ -90,6 +99,7 @@
                         <outlet property="btnDetect" destination="fGb-mq-iVp" id="O7H-F0-mm3"/>
                         <outlet property="lblBpm" destination="5rk-ME-vL1" id="evT-vk-pCl"/>
                         <outlet property="lblNote" destination="klF-ck-9y8" id="iDV-TF-Pun"/>
+                        <outlet property="lblProgress" destination="dfc-fe-vEw" id="nad-mS-WxR"/>
                         <outlet property="lblTime" destination="oOq-yv-mur" id="Wr6-6N-gaW"/>
                         <outlet property="scrollContainer" destination="dBi-XC-jAQ" id="zkW-fS-cdR"/>
                         <outlet property="viewCamera" destination="ui7-hl-lyq" id="HOA-LV-2HA"/>
@@ -97,7 +107,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-60.869565217391312" y="97.010869565217405"/>
+            <point key="canvasLocation" x="-61.600000000000001" y="96.7016491754123"/>
         </scene>
     </scenes>
 </document>

@@ -12,6 +12,7 @@ import UIKit
 protocol HeartBeatDetectorDelegate {
 	func heartBeatStarted()
 	func heartBeatUpdate(_ bpm: Int, atTime: Int)
+	func heartBeatWaiting(_ atTime: Int)
 	func heartBeatFinished()
 	func heartBeatDetectInterrupt()
 }
@@ -119,6 +120,10 @@ class HeartBeatDetector: NSObject {
 		if hueArray.count >= (5 * fps) { // wait 5 sec to calc right value
 			DispatchQueue.main.async {
 				self.delegate?.heartBeatUpdate(Int(heartbeat), atTime: Int(ms))
+			}
+		} else {
+			DispatchQueue.main.async {
+				self.delegate?.heartBeatWaiting(Int(ms))
 			}
 		}
 		

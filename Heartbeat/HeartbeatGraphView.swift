@@ -21,6 +21,8 @@ class HeartbeatGraphView: UIView {
 	var points = [DrawPoint]()
 	
 	override func draw(_ rect: CGRect) {
+		let rect = CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height)
+		
 		UIColor.white.setFill()
 		let screen = UIBezierPath(rect: rect)
 		screen.fill()
@@ -30,23 +32,24 @@ class HeartbeatGraphView: UIView {
 		xAxis.move(to: CGPoint(x: 20, y: rect.size.height-40))
 		xAxis.addLine(to: CGPoint(x: rect.size.width, y: rect.size.height-40))
 		xAxis.close()
-		UIColor.black.setStroke()
 		xAxis.stroke()
 		
 		var o: CGFloat = 40
-		while o <= rect.width {
+		while o <= rect.size.width {
 			var len: CGFloat = 5
 			if (Int(o - 40) % (Int(xUnit) * 30)) == 0 {
 				len = 15
 				if o > 40 {
 					let text: NSString = "\(Int(o - 40) / (Int(xUnit) * 30)) s" as NSString
 					text.draw(at: CGPoint(x: o-10, y: rect.size.height-38+len),
-					          withAttributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 10)])
+					          withAttributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 10),
+					                           NSForegroundColorAttributeName: UIColor.blue])
 				}
 			} else if (Int(o - 40) % (Int(xUnit) * 15)) == 0 {
 				len = 10
 			}
 		
+			UIColor.black.setStroke()
 			let sc = UIBezierPath()
 			sc.move(to: CGPoint(x: o, y: rect.size.height-40)); sc.addLine(to: CGPoint(x: o, y: rect.size.height-40+len)); sc.close()
 			sc.stroke()
@@ -57,7 +60,6 @@ class HeartbeatGraphView: UIView {
 		// draw y axix
 		let yAxis = UIBezierPath()
 		yAxis.move(to: CGPoint(x: 40, y: rect.size.height - 40)); yAxis.addLine(to: CGPoint(x: 40, y: 0)); yAxis.close()
-		UIColor.black.setStroke()
 		yAxis.stroke()
 		
 		var yUnit = (rect.size.height - 40) / 20
@@ -65,20 +67,20 @@ class HeartbeatGraphView: UIView {
 		var strUnit = 40
 		while o > 0 {
 			let sc = UIBezierPath()
+			UIColor.black.setStroke()
 			sc.move(to: CGPoint(x: 30, y: o)); sc.addLine(to: CGPoint(x: 40, y: o)); sc.close()
 			sc.stroke()
 			
 			let text: NSString = "\(strUnit)" as NSString
 			text.draw(at: CGPoint(x: 10, y: o-5),
-			          withAttributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 8)])
+			          withAttributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 8),
+			                           NSForegroundColorAttributeName: UIColor.green])
 			
 			o = o - yUnit
 			strUnit = strUnit + 10
 		}
 		
 		// draw bpm per ms
-//		guard points.count > 15 else { return }
-		
 		yUnit = yUnit / 10
 		UIColor.red.setStroke()
 		let bpm = UIBezierPath()
@@ -92,8 +94,6 @@ class HeartbeatGraphView: UIView {
 			} else {
 				bpm.addLine(to: CGPoint(x: x, y: y))
 			}
-//			let bpm = UIBezierPath(roundedRect: CGRect(x: x-1, y: y-1, width: 2, height: 2), cornerRadius: 1)
-//			bpm.fill()
 		}
 		bpm.stroke()
 	}
@@ -101,14 +101,13 @@ class HeartbeatGraphView: UIView {
 	
 	func reset() {
 		points.removeAll()
+		setNeedsDisplay()
 	}
 	
 	
 	func drawGraph(with bpm: Int, time: Int) {
 		let one = DrawPoint(bpm: bpm, time: time)
 		points.append(one)
-		
-//		guard points.count > 15 else { return }
 		
 		if (CGFloat(points.count) * xUnit + 40) > frame.size.width {
 			frame = CGRect(x: frame.origin.x, y: frame.origin.y, width: (CGFloat(points.count) * xUnit + 40), height: frame.size.height)

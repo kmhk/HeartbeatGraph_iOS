@@ -15,6 +15,8 @@
 		F3B8F15B1E37C2770073B963 /* DetectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B8F15A1E37C2770073B963 /* DetectViewModel.swift */; };
 		F3B8F15D1E37F8200073B963 /* HeartBeatDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B8F15C1E37F8200073B963 /* HeartBeatDetector.swift */; };
 		F3B8F15F1E3951A40073B963 /* HeartbeatGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B8F15E1E3951A40073B963 /* HeartbeatGraphView.swift */; };
+		F3B8F1691E3A39C60073B963 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3B8F1681E3A39C60073B963 /* CoreGraphics.framework */; };
+		F3B8F16D1E3A42EC0073B963 /* XMLWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B8F16C1E3A42EC0073B963 /* XMLWriter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,11 @@
 		F3B8F15A1E37C2770073B963 /* DetectViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetectViewModel.swift; sourceTree = "<group>"; };
 		F3B8F15C1E37F8200073B963 /* HeartBeatDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartBeatDetector.swift; sourceTree = "<group>"; };
 		F3B8F15E1E3951A40073B963 /* HeartbeatGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartbeatGraphView.swift; sourceTree = "<group>"; };
+		F3B8F1601E3A39440073B963 /* Heartbeat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Heartbeat-Bridging-Header.h"; sourceTree = "<group>"; };
+		F3B8F1661E3A39990073B963 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
+		F3B8F1681E3A39C60073B963 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		F3B8F16B1E3A42EC0073B963 /* XMLWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMLWriter.h; path = XMLWriter/XMLWriter.h; sourceTree = "<group>"; };
+		F3B8F16C1E3A42EC0073B963 /* XMLWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMLWriter.m; path = XMLWriter/XMLWriter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3B8F1691E3A39C60073B963 /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,6 +54,7 @@
 			children = (
 				F3B8F1431E37B0B70073B963 /* Heartbeat */,
 				F3B8F1421E37B0B70073B963 /* Products */,
+				F3B8F1651E3A39990073B963 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,6 +69,7 @@
 		F3B8F1431E37B0B70073B963 /* Heartbeat */ = {
 			isa = PBXGroup;
 			children = (
+				F3B8F16A1E3A42E30073B963 /* XMLWriter */,
 				F3B8F1581E37B15A0073B963 /* DetectViewController.swift */,
 				F3B8F15A1E37C2770073B963 /* DetectViewModel.swift */,
 				F3B8F15C1E37F8200073B963 /* HeartBeatDetector.swift */,
@@ -69,8 +79,27 @@
 				F3B8F14B1E37B0B70073B963 /* Assets.xcassets */,
 				F3B8F14D1E37B0B70073B963 /* LaunchScreen.storyboard */,
 				F3B8F1501E37B0B70073B963 /* Info.plist */,
+				F3B8F1601E3A39440073B963 /* Heartbeat-Bridging-Header.h */,
 			);
 			path = Heartbeat;
+			sourceTree = "<group>";
+		};
+		F3B8F1651E3A39990073B963 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F3B8F1681E3A39C60073B963 /* CoreGraphics.framework */,
+				F3B8F1661E3A39990073B963 /* libxml2.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F3B8F16A1E3A42E30073B963 /* XMLWriter */ = {
+			isa = PBXGroup;
+			children = (
+				F3B8F16B1E3A42EC0073B963 /* XMLWriter.h */,
+				F3B8F16C1E3A42EC0073B963 /* XMLWriter.m */,
+			);
+			name = XMLWriter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -105,6 +134,7 @@
 				TargetAttributes = {
 					F3B8F1401E37B0B70073B963 = {
 						CreatedOnToolsVersion = 8.2.1;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -145,6 +175,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3B8F16D1E3A42EC0073B963 /* XMLWriter.m in Sources */,
 				F3B8F15D1E37F8200073B963 /* HeartBeatDetector.swift in Sources */,
 				F3B8F1451E37B0B70073B963 /* AppDelegate.swift in Sources */,
 				F3B8F15B1E37C2770073B963 /* DetectViewModel.swift in Sources */,
@@ -270,15 +301,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEVELOPMENT_TEAM = "";
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = Heartbeat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Heartbeat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "1509eb80-8f56-4eec-8872-5c9fe51e6e8c";
 				PROVISIONING_PROFILE_SPECIFIER = "Dev Provision";
+				SWIFT_OBJC_BRIDGING_HEADER = "Heartbeat/Heartbeat-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -287,15 +323,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEVELOPMENT_TEAM = "";
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = Heartbeat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Heartbeat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "1509eb80-8f56-4eec-8872-5c9fe51e6e8c";
 				PROVISIONING_PROFILE_SPECIFIER = "Dev Provision";
+				SWIFT_OBJC_BRIDGING_HEADER = "Heartbeat/Heartbeat-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

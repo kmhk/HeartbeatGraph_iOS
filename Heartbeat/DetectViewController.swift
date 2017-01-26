@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import MessageUI
 
 class DetectViewController: UIViewController {
 	
@@ -19,8 +20,11 @@ class DetectViewController: UIViewController {
 	@IBOutlet weak var lblBpm: UILabel!
 	@IBOutlet weak var lblTime: UILabel!
 	@IBOutlet weak var scrollContainer: UIScrollView!
+	@IBOutlet weak var lblProgress: UILabel!
 	
 	var viewGraph: HeartbeatGraphView?
+	
+	var exported: Bool = false
 	
 	
 	// MARK: life-cycle methods
@@ -44,17 +48,13 @@ class DetectViewController: UIViewController {
     }
 	
 	
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-		
-		viewModel.startCamera()
-	}
-	
-	
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
-		viewGraph?.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: scrollContainer.frame.size)
+		guard !exported else { exported = false; return }
+		
+		viewModel.startCamera()
+		viewGraph?.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: scrollContainer.frame.size)		
 	}
 
 	
@@ -78,6 +78,12 @@ class DetectViewController: UIViewController {
 		
 		lblNote.text = "Please cover the back-camera and the flash with your finger!"
 		btnDetect.isHidden = true
+		
+		viewGraph?.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: scrollContainer.frame.size)
+		viewGraph?.reset()
+		scrollContainer.contentSize = CGSize(width: (viewGraph?.frame.size.width)!, height: (viewGraph?.frame.size.height)!)
+		
+		lblProgress.text = "0 %"
 	}
 }
 
@@ -88,10 +94,6 @@ extension DetectViewController: HeartBeatDetectorDelegate {
 	
 	func heartBeatStarted() {
 		lblNote.text = "Detecting now... Please keep your finger for 10s"
-		
-		viewGraph?.reset()
-		viewGraph?.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: scrollContainer.frame.size)
-		scrollContainer.contentSize = CGSize(width: (viewGraph?.frame.size.width)!, height: (viewGraph?.frame.size.height)!)
 	}
 	
 	
@@ -99,10 +101,16 @@ extension DetectViewController: HeartBeatDetectorDelegate {
 		lblBpm.text = "\(bpm)" + " bpm"
 		lblTime.text = "\(atTime)" + "ms"
 		
+		lblProgress.text = "\(atTime/viewModel.duration/10) %"
 		viewGraph?.drawGraph(with: bpm, time: atTime)
 		
 		scrollContainer.contentSize = CGSize(width: (viewGraph?.frame.size.width)!, height: (viewGraph?.frame.size.height)!)
 		scrollContainer.setContentOffset(CGPoint(x: (viewGraph?.frame.size.width)! - scrollContainer.frame.size.width, y: 0), animated: true)
+	}
+	
+	
+	func heartBeatWaiting(_ atTime: Int) {
+		lblProgress.text = "\(atTime/viewModel.duration/10) %"
 	}
 	
 	
@@ -111,10 +119,40 @@ extension DetectViewController: HeartBeatDetectorDelegate {
 		
 		btnDetect.isHidden = false
 		lblNote.text = "Detection finished. Click \"New Detect\" for new detection, \(viewGraph?.points.count)"
+		
+		let url = viewModel.exportXML(with: (viewGraph?.points)!, size: (viewGraph?.frame.size)!)
+		
+		// test code for get email attached xml file
+		guard MFMailComposeViewController.canSendMail() else { return }
+		let mailComposer = MFMailComposeViewController()
+		mailComposer.mailComposeDelegate = self
+		
+		mailComposer.setSubject("Heartbeat result SVG")
+		
+		let data = try? Data(contentsOf: url)
+		mailComposer.addAttachmentData(data!, mimeType: "svg", fileName: "HearbeatGraph.svg")
+		
+		exported = true
+		present(mailComposer, animated: true, completion: nil)
 	}
 	
 	
 	func heartBeatDetectInterrupt() {
 		lblNote.text = "Please cover the back-camera and the flash with your finger!"
+		
+		viewGraph?.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: scrollContainer.frame.size)
+		viewGraph?.reset()
+		scrollContainer.contentSize = CGSize(width: (viewGraph?.frame.size.width)!, height: (viewGraph?.frame.size.height)!)
+		
+		lblProgress.text = "0 %"
+	}
+}
+
+
+extension DetectViewController: MFMailComposeViewControllerDelegate {
+	public func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+		dismiss(animated: true) {
+			self.viewGraph?.setNeedsDisplay()
+		}
 	}
 }
